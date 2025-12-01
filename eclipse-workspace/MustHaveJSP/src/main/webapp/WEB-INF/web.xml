@@ -87,5 +87,9 @@
 		<servlet-name>MVCBoardWrite</servlet-name>
 		<servlet-class>model2.movcboard.WriteController</servlet-class> -->
 	<!-- </servlet> -->
+	<context-param>
+		<param-name>CHAT_ADDR</param-name>
+		<param-value>ws://localhost:8080/MustHaveJSP</param-value>
+	</context-param>
 </web-app>
  
