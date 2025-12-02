@@ -84,6 +84,7 @@
 		<url-pattern>/mvcboard/list.do</url-pattern>
 	</servlet-mapping>
 
+
 <!-- 	<servlet>
 		<servlet-name>RegisterController</servlet-name>
 		<servlet-class>model2.board.RegisterController</servlet-class>
