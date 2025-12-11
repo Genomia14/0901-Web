@@ -6,9 +6,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.zerock.springex.dto.PageRequestDTO;
 import org.zerock.springex.vo.TodoVO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +32,33 @@ class TodoMapperTest {
                 .dueDate(LocalDate.of(2025,12,10))
                 .writer("user01")
                 .build();
-
         todoMapper.insert(vo);
     }
+    @Test
+    void selectAll(){
+        List<TodoVO> voList = todoMapper.selectAll();
+        for(TodoVO vo : voList){
+            log.info(vo);
+        }
+    }
+    @Test
+        void selectById(){
+        TodoVO vo = todoMapper.selectById(1L);
+        log.info(vo);
+    }
+
+    @Test
+    void selectSearch() {
+        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+        pageRequestDTO.setPage(1);
+        pageRequestDTO.setSize(10);
+        pageRequestDTO.setFinished(true);
+        pageRequestDTO.setFrom(LocalDate.of(2025,12,1));
+        pageRequestDTO.setTo(LocalDate.of(2025,12,14));
+        String [] types = {"t","w"}; // t = title, w = writer
+        pageRequestDTO.setTypes(types);
+        pageRequestDTO.setKeyword("4");
+        todoMapper.selectSearch(pageRequestDTO);
+    }
+
 }
