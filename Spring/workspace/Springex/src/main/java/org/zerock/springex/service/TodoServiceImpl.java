@@ -3,6 +3,8 @@ package org.zerock.springex.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zerock.springex.dto.PageRequestDTO;
+import org.zerock.springex.dto.PageResponseDTO;
 import org.zerock.springex.dto.TodoDTO;
 import org.zerock.springex.mappers.TodoMapper;
 import org.zerock.springex.vo.TodoVO;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService {
-//  의존성 주입 : private final와 @RequiredArgsConstructor를 사용하는 방식
+    //  의존성 주입 : private final와 @RequiredArgsConstructor를 사용하는 방식
     private final TodoMapper todoMapper;
     @Override
     public void register(TodoDTO dto) {
@@ -31,7 +33,7 @@ public class TodoServiceImpl implements TodoService {
         return todoMapper.selectAll().stream()
                 .map(vo -> new TodoDTO(vo))
                 .collect(Collectors.toList()); // 안의 내용이 변경 가능한 리스트 생성
-                // .toList(); 내용을 변경할 수 없는 리스트 생성
+        // .toList(); 내용을 변경할 수 없는 리스트 생성
     }
 
     @Override
@@ -54,5 +56,21 @@ public class TodoServiceImpl implements TodoService {
     public void edit(TodoDTO dto) {
         TodoVO vo = dto.convertVO();
         todoMapper.updateById(vo);
+    }
+
+    @Override
+    public PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO) {
+        // DB에서 할일 목록 조회
+        List<TodoVO> voList = todoMapper.selectSearch(pageRequestDTO);
+        // VO를 DTO로 변환
+        List<TodoDTO> dtoList = voList.stream()
+                .map(vo -> new TodoDTO(vo))
+                .collect(Collectors.toList());
+        // 페이징에 필요한 dto를 생성하여 반환
+        return PageResponseDTO.<TodoDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total(todoMapper.getCount(pageRequestDTO))
+                .build();
     }
 }

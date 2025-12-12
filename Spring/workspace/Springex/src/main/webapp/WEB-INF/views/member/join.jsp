@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <!-- 부트스트랩 CSS를 CDN방식으로 다운로드 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <div class="container-fluid">
@@ -15,10 +16,10 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Featured
+                    회원가입
                 </div>
                 <div class="card-body">
-                    <form action="/member/login" method="post">
+                    <form action="/member/join" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text">ID</span>
                             <input type="text" name="id"
@@ -28,6 +29,14 @@
                             <span class="input-group-text">PW</span>
                             <input type="password" name="pw"
                                    class="form-control" placeholder="비밀번호"/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">이메일</span>
+                            <input type="text" name="emailId"
+                                   class="form-control" placeholder="id"/>
+                            <span class="input-group-text">@</span>
+                            <input type="text" name="emailAddress"
+                                   class="form-control" placeholder="email"/>
                         </div>
                         <div class="my-4">
                             <div class="float-end">
@@ -45,17 +54,19 @@
     <jsp:include page="../todo/footer.jsp"/>
 </div>
 <!-- 부트스트랩 JavaScript를 CDN방식으로 다운로드 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script>
     const serverValidResult = {};
     <c:forEach items="${errors}" var="error">
-        serverValidResult['${error.getField()}'] = '${error.defaultMessage}';
+    serverValidResult['${error.getField()}'] = '${error.defaultMessage}';
     </c:forEach>
     console.log(serverValidResult);
-    if(Object.keys(serverValidResult).length > 0){
+    if (Object.keys(serverValidResult).length > 0) {
         alert("title : " + serverValidResult.title + "\n"
-        +"dueDate : " + serverValidResult.dueDate + "\n"
-        +"writer : " + serverValidResult.writer + "\n")
+            + "dueDate : " + serverValidResult.dueDate + "\n"
+            + "writer : " + serverValidResult.writer + "\n")
     }
 </script>
 </body>

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="../todo/header.jsp"/>
     <div class="row content">
         <div class="col">
             <div class="card">
@@ -18,26 +18,20 @@
                     Featured
                 </div>
                 <div class="card-body">
-                    <form action="/todo/register" method="post">
+                    <form action="/member/login" method="post">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Title</span>
-                            <input type="text" name="title"
-                                   class="form-control" placeholder="title"/>
+                            <span class="input-group-text">ID</span>
+                            <input type="text" name="id"
+                                   class="form-control" placeholder="아이디"/>
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text">DueDate</span>
-                            <input type="date" name="dueDate"
-                                   class="form-control"/>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Writer</span>
-                            <input type="text" name="writer"
-                                   class="form-control" placeholder="writer"/>
+                            <span class="input-group-text">PW</span>
+                            <input type="password" name="pw"
+                                   class="form-control" placeholder="비밀번호"/>
                         </div>
                         <div class="my-4">
                             <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="submit" class="btn btn-primary">로그인</button>
                             </div>
                         </div>
                     </form>
@@ -48,7 +42,7 @@
     <div class="row content">
         <h1>Content</h1>
     </div>
-    <jsp:include page="footer.jsp"/>
+    <jsp:include page="../todo/footer.jsp"/>
 </div>
 <!-- 부트스트랩 JavaScript를 CDN방식으로 다운로드 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
