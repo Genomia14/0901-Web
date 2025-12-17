@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="page-wrapper">
-    <jsp:include page="header.jsp" />
+    <jsp:include page="../header.jsp" />
 
     <h2>게시물 수정</h2>
 
@@ -37,7 +37,7 @@
         <button type="button" onclick="history.back()">뒤로가기</button>
     </form>
 
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="../footer.jsp" />
 </div>
 </body>
 </html>
