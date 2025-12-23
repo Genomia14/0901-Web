@@ -12,12 +12,14 @@ import java.time.LocalDateTime;
 public class ArticleViewResponse {
     private Long id;
     private String title;
+    private String userId;
     private String content;
     private LocalDateTime createdAt;
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
+        this.userId = article.getUserId();
         this.content = article.getContent();
         this.createdAt = article.getCreatedAt();
     }

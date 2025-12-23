@@ -27,17 +27,23 @@ public class Article {
 
     @Column(name = "content", nullable = false)
     private String content;
+
+    @Column(name = "user_id")
+    private String userId;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Builder
-    public Article(String title, String content) {
+    public Article(String title, String content, String user_id) {
         this.title = title;
         this.content = content;
+        this.userId = user_id;
     }
 
     // title, content변경하는 메서드

@@ -1,6 +1,6 @@
 package me.shinsunyoung.springbootdeveloper.domain;
 
-import jakarta.annotation.Nullable;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -17,9 +17,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
@@ -31,21 +29,32 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password; // 비밀번호
 
+    @Column(name="auth")
+    private String auth; // 권한
+
     @Builder
     public User(String email, String password, String auth) {
         this.email = email;
         this.password = password;
+        this.auth = auth;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(auth.equals("admin")){
+            // ROLE_ADMIN : 관리자 권한
+            // ROLE_USER : 일반 사용자 권한
+            // ROLE_ : SpringSecurity에서 권한 설정시 붙이는 규칙
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+        }
         // 유저가 가진 권한을 반환하는 메서드
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
-    public @Nullable String getPassword() {
-        return password;
+    public String getPassword() {
+        return password; // 실제 로그인에 사용되는 비밀번호 설정
     }
 
     @Override
@@ -56,13 +65,13 @@ public class User implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         // 계정 만료 여부 반환
-        return true; // 만료되지않으면 true
+        return true; // 잠겨있지 있으면 true
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // 계정 잠금 여부 반환
-        return true; // 잠겨있지않으면 true
+        // 계정 만료 여부 반환
+        return true; // 잠겨있지 않으면 true
     }
 
     @Override

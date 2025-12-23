@@ -1,3 +1,5 @@
-INSERT INTO article (title, content, created_at, updated_at) VALUES ('제목 1', '내용 1', NOW(), NOW())
-INSERT INTO article (title, content, created_at, updated_at) VALUES ('제목 2', '내용 2', NOW(), NOW())
-INSERT INTO article (title, content, created_at, updated_at) VALUES ('제목 3', '내용 3', NOW(), NOW())
+INSERT INTO article (title, content, user_id, created_at, updated_at) VALUES ('제목 1', '내용 1', 'tatara123@gmail.com', NOW(), NOW())
+INSERT INTO article (title, content, user_id, created_at, updated_at) VALUES ('제목 2', '내용 2', 'must123@213213', NOW(), NOW())
+INSERT INTO article (title, content, user_id, created_at, updated_at) VALUES ('제목 3', '내용 3', 'tatara123@gmail.com', NOW(), NOW())
+INSERT INTO users (email, auth, password) values ('tatara123@gmail.com', 'admin','$2a$10$FqXlM1nhaaDnml7a/X0/xOKlNSpA5qp43VFUormq5vrfOn0k829sm')
+INSERT INTO users (email, auth, password) values ('must123@213213', 'user','$2a$10$pbdOcL1lQ25RW1Ri58GU9.T9S3i/1cY8um.FYua13KiEK.pwbPbBO')
