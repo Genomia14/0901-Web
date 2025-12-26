@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.shinsunyoung.springbootdeveloper.domain.Article;
+import me.shinsunyoung.springbootdeveloper.domain.ArticleImage;
+
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,9 +21,17 @@ public class AddArticleRequest {
     // DTO를 Entity로 변경하는 메서드
     public Article toEntity(){
         return Article.builder()
-                .title(title)
-                .content(content)
-                .user_id(userId)
+                .title(this.title)
+                .content(this.content)
+                .userId(this.userId)
                 .build();
     }
+        public Article toEntityImage(Set<ArticleImage> images){
+            return Article.builder()
+                    .title(this.title)
+                    .content(this.content)
+                    .userId(this.userId)
+                    .images(images)
+                    .build();
+        }
 }
