@@ -129,12 +129,12 @@ const createButton3 = document.getElementById('create-btn3');
 if (createButton3) {
     createButton3.addEventListener('click', event => {
         // 파일 데이터를 전송하기 위한 FormData객체 생성
-        const formData = new FormData();
+        let formData = new FormData();
         // FormData에 title, content 데이터 저장
         formData.append("title", document.getElementById('title').value);
         formData.append("content", document.getElementById('content').value);
         // 파일 데이터의 경우 list형식임으로 반복문으로 데이터를 꺼내어 저장
-        const fileInput = document.getElementById('files');
+        let fileInput = document.getElementById('files');
         if (fileInput.files.length > 0) {
             for (let i = 0; i < fileInput.files.length; i++) {
                 formData.append('files', fileInput.files[i]);
@@ -149,42 +149,48 @@ if (createButton3) {
         })
     })
 }
-if (modifyButton2) {
-    document.querySelector(".img-fluid").addEventListener('click', async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (confirm('이미지를 삭제하시겠습니까? 되돌릴 수 없습니다.')) {
-            try {
-                let params = new URLSearchParams(location.search);
-                let id = params.get('id');
-                await axios.delete(`/api/img/${id}`, {
-                    data: {uuid: event.target.dataset.src}
-                })
-                event.target.remove();
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    })
-}
 
 const modifyButton3 = document.getElementById('modify-btn3');
 if (modifyButton3) {
+    let params = new URLSearchParams(location.search);
+    let id = params.get('id');
     modifyButton3.addEventListener('click', async (event) => {
-        const formData = new FormData();
+        // 파일 데이터를 전송하기 위한 FormData객체 생성
+        let formData = new FormData();
+        // FormData에 title, content 데이터 저장
         formData.append("title", document.getElementById('title').value);
         formData.append("content", document.getElementById('content').value);
-        const fileInput = document.getElementById('files');
+        // 파일 데이터의 경우 list형식임으로 반복문으로 데이터를 꺼내어 저장
+        let fileInput = document.getElementById('files');
         if (fileInput.files.length > 0) {
             for (let i = 0; i < fileInput.files.length; i++) {
                 formData.append('files', fileInput.files[i]);
             }
         }
         try {
-            await axios.put(`/api/articles`, formData)
+            await axios.put(`/api/articles/${id}`, formData);
             alert('수정이 완료되었습니다.');
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
+    })
+
+    document.querySelectorAll(".img-fluid").forEach(img => {
+        img.addEventListener('click'
+            , async (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (confirm('이미지를 삭제하시겠습니까? 되돌릴 수 없습니다.')) {
+                    location.href=`/articles/${id}`; // 상세보기 화면으로 이동
+                    try {
+                        await axios.delete(`/api/img/${id}`, {
+                            data: {uuid: event.target.dataset.src}
+                        })
+                        event.target.remove();
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            })
     })
 }

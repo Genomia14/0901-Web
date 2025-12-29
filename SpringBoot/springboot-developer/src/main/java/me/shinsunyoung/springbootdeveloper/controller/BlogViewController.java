@@ -2,9 +2,7 @@ package me.shinsunyoung.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.shinsunyoung.springbootdeveloper.domain.Article;
-import me.shinsunyoung.springbootdeveloper.dto.ArticleListViewResponse;
-import me.shinsunyoung.springbootdeveloper.dto.ArticleResponse;
-import me.shinsunyoung.springbootdeveloper.dto.ArticleViewResponse;
+import me.shinsunyoung.springbootdeveloper.dto.*;
 import me.shinsunyoung.springbootdeveloper.service.BlogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,11 +24,9 @@ public class BlogViewController {
     }
 
     @GetMapping({"/articles"})
-    public String getArticles(Model model) {
-        List<ArticleListViewResponse> articles = blogService.findAll()
-                .stream()
-                .map(ArticleListViewResponse::new)
-                .toList();
+    public String getArticles(PageRequestDTO pageRequestDTO, Model model) {
+        PageResponseDTO<ArticleListViewResponse> articles =
+                blogService.searchArticle(pageRequestDTO);
         model.addAttribute("articles", articles);
         return "articleList";
     }
