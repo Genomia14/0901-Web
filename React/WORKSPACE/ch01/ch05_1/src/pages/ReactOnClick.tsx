@@ -1,0 +1,25 @@
+import { useState, type SyntheticEvent } from "react";
+
+export default function ReactOnClick() {
+  // useState : 화면의 상태를 변경하고 싶을때 사용하는 Hook(리액트 기능)
+  // contst 변수, 변수를 변경할 함수 = useState(초기값);
+  const [text, setText] = useState("off");
+  const toogle = () => {
+    if (text == "on") {
+      setText("off");
+    } else {
+      setText("on");
+    }
+  };
+  // const onClick = (e: SyntheticEvent) => {
+  //   const { isTrusted, target, bubbles } = e;
+  //   console.log("mouse click occurs on <button>", isTrusted, target, bubbles);
+  // };
+  return (
+    <div>
+      <p>ReactOnClick</p>
+      <button onClick={toogle}>{text}</button>
+      {/* <button onClick={onClick}>Click Me</button> */}
+    </div>
+  );
+}
