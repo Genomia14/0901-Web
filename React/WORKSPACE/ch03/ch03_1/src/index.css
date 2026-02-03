@@ -1,7 +1,18 @@
-/* @import url("https://fonts.googleapis.com/icon?family=Material+Icons"); */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import "@fontsource/material-icons";
-
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined2:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=cancel");
 .material-icons {
   font-family: "Material Icons";
+  display: inline-block;
+}
+
+.Material-Symbols-Outlined {
+  font-family: "Material-Symbols-Outlined";
+  display: inline-block;
+}
+
+.Material-Symbols-Outlined2 {
+  font-family: "Material-Symbols-Outlined2";
   display: inline-block;
 }

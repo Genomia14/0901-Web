@@ -1,8 +1,9 @@
 import Tailwindcss from "./pages/Tailwindcss";
 import Color from "./pages/Color";
-import TextsTest from "./pages/TextsTest";
+// import TextsTest from "./pages/TextsTest";
 import "./App.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import TextsTest from "./pages/TextsTest";
 
 export default function App() {
   return (
