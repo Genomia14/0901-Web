@@ -10,17 +10,21 @@ import WindowResizeTest from "./pages/windowResizeTest";
 import FetchTest from "./pages/FetchTest";
 import FileDrop from "./pages/FileDrop";
 import ForwardRefTest from "./pages/ForwardRefTest";
+import { ResponsiveContext, ResponsiveProvider } from "./contexts";
+import ResponsiveContextTest from "./pages/ResponsiveContextTest";
 
 export default function App() {
   return (
     // prettier-ignore
     <BrowserRouter>
+    <ResponsiveProvider>
       <p>
         <Link to="*">Callback</Link> | <Link to="/1">HighOrderCallback</Link> | {" "}
         <Link to="/2">Memo</Link> | <Link to="/3">UseOrCreateTest</Link> | {" "}
         <Link to="/4">BasicForm</Link> | <Link to="/5">ObjectState</Link> | {" "}
         <Link to="/6">WindowResizeTest</Link> | <Link to="/7">FetchTest</Link> | {" "}
         <Link to="/8">FileDrop</Link> | <Link to="/9">ForwardRefTest</Link>
+        <Link to="/10">ResponsiveContextTest</Link> | 
       </p>
       <Routes>
         <Route path="*" element={<Callback />} />
@@ -33,7 +37,9 @@ export default function App() {
         <Route path="/7" element={<FetchTest />} />
         <Route path="/8" element={<FileDrop />} />
         <Route path="/9" element={<ForwardRefTest />} />
+        <Route path="/10" element={<ResponsiveContextTest />} />
       </Routes>
+      </ResponsiveProvider>
     </BrowserRouter>
   );
 }
