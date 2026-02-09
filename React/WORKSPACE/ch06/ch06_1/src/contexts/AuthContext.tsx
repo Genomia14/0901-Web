@@ -6,6 +6,7 @@ import {
   type FC,
   type PropsWithChildren,
 } from "react";
+import * as U from "../utils";
 
 export type LoggedUser = { email: string; password: string };
 type Callback = () => void;
@@ -17,8 +18,8 @@ type ContextType = {
 };
 
 export const AuthContext = createContext<ContextType>({
-  signup: (email: string, passwrod: string, callback?: Callback) => {},
-  login: (email: string, passwrod: string, callback?: Callback) => {},
+  signup: (email: string, password: string, callback?: Callback) => {},
+  login: (email: string, password: string, callback?: Callback) => {},
   logout: (callback?: Callback) => {},
 });
 type AuthproviderProps = {};
@@ -32,7 +33,9 @@ export const Authprovider: FC<PropsWithChildren<AuthproviderProps>> = ({
 
   const signup = useCallback(
     (email: string, password: string, callback?: Callback) => {
+      const user = { email, password };
       setLoggedUser((notUsed) => ({ email, password }));
+      U.writeObjectP("user", user).finally(() => callback && callback());
       callback && callback();
     },
     [],
