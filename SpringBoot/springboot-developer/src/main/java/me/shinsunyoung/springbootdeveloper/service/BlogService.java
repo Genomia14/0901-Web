@@ -10,6 +10,7 @@ import me.shinsunyoung.springbootdeveloper.repository.ArticleImageRepository;
 import me.shinsunyoung.springbootdeveloper.repository.BlogRepository;
 import me.shinsunyoung.springbootdeveloper.util.FileNameUtil;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,9 +25,9 @@ public class BlogService {
     private final BlogRepository blogRepository;
     private final ArticleImageRepository articleImageRepository;
     @Transactional
-    public Article save(AddArticleRequest request, List<FileNameUtil> imageList){
+    public Article save(AddArticleRequest request,String userName, List<FileNameUtil> imageList){
         // 기사 데이터 생성
-        Article article = request.toEntity();
+        Article article = request.toEntity(userName);
         // 저장할 이미지가 있는지 확인
         if(imageList != null && !imageList.isEmpty()) {
             int count = 0; // 이미지 순서를 위한 숫자 변수
@@ -63,6 +64,10 @@ public class BlogService {
         //.get(); //예외처리를 하지않고 데이터를 꺼내는 방
     }
     public void delete(long id){
+//      작성자와 로그인 유저가 같은지 확인
+        Article article = blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found: "+id));
+        authorizeArticleAuthor(article);
         // 데이터 삭제
         blogRepository.deleteById(id);
     }
@@ -71,6 +76,7 @@ public class BlogService {
         // 변경할 데이터 조회
         Article article = blogRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("not found: "+id));
+        authorizeArticleAuthor(article);
         // 데이터 수정하기
         article.update(request.getTitle(), request.getContent());
         // 이미지 테이블에 추가
@@ -80,5 +86,12 @@ public class BlogService {
     // 테이블에서 이미지를 삭제하는 메서드
     public void removeImage(String uuid){
         articleImageRepository.deleteById(uuid);
+    }
+
+    private static void authorizeArticleAuthor(Article article){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!article.getAuthor().equals(userName)){
+            throw new IllegalArgumentException("not authroized");
+        }
     }
 }

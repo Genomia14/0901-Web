@@ -18,12 +18,14 @@ public class AddArticleRequest {
     private String title;
     private String content;
     private String userId;
+    private String author;
     // DTO를 Entity로 변경하는 메서드
-    public Article toEntity(){
+    public Article toEntity(String author){
         return Article.builder()
                 .title(this.title)
                 .content(this.content)
                 .userId(this.userId)
+                .author(this.author)
                 .build();
     }
         public Article toEntityImage(Set<ArticleImage> images){

@@ -1,6 +1,7 @@
 config.properties
 auth.properties
 
+
 # Compiled class file
 *.class
 .metadata/
